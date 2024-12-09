@@ -19,19 +19,20 @@ class InvoiceController extends Controller
             'details.*.description' => 'required|string',
             'details.*.price' => 'required|numeric',
             'details.*.quantity' => 'required|integer|min:1',
+            'details.*.total' => 'required|numeric',
         ]);
 
         // Hitung total
-        $total = collect($validatedData['details'])->reduce(function ($carry, $detail) {
-            return $carry + ($detail['price'] * $detail['quantity']);
-        }, 0);
+        // $total = collect($validatedData['details'])->reduce(function ($carry, $detail) {
+        //     return $carry + ($detail['price'] * $detail['quantity']);
+        // }, 0);
 
         // Buat Invoice
         $invoice = Invoice::create([
             'tanggal' => $validatedData['tanggal'],
             'pemeriksa' => $validatedData['pemeriksa'],
             'status' => $validatedData['status'], // Ambil status dari request
-            'total' => $total,
+            'total' => "1",
         ]);
 
         // Buat Detail Invoice

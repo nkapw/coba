@@ -14,6 +14,7 @@ class InvoiceDetail extends Model
         'description',
         'price',
         'quantity',
+        'total',
     ];
 
     public function invoice()
