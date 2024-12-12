@@ -14,7 +14,7 @@ class InvoiceController extends Controller
         $validatedData = $request->validate([
             'tanggal' => 'required|date',
             'pemeriksa' => 'required|string',
-            'status' => 'required|in:paid,unpaid', // Validasi status dari body request
+            'status' => 'required|in:paid,unpaid',
             'details' => 'required|array',
             'details.*.description' => 'required|string',
             'details.*.price' => 'required|numeric',
@@ -32,7 +32,7 @@ class InvoiceController extends Controller
             'tanggal' => $validatedData['tanggal'],
             'pemeriksa' => $validatedData['pemeriksa'],
             'status' => $validatedData['status'], // Ambil status dari request
-            'total' => "1",
+            // 'total' => "1",
         ]);
 
         // Buat Detail Invoice
