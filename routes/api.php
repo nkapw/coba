@@ -45,5 +45,5 @@ Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
 Route::get('/invoices/status/{status}', [InvoiceController::class, 'getByStatus']);
 Route::post('/invoices', [InvoiceController::class, 'store']);
-Route::patch('/invoices/{id}/status', [InvoiceController::class, 'updateStatus']);
+Route::put('/invoices/{id}', [InvoiceController::class, 'update']);
 Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy']);

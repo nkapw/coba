@@ -58,16 +58,36 @@ class InvoiceController extends Controller
     }
 
     // 4. Update Invoice Status
-    public function updateStatus(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'status' => 'required|in:paid,unpaid',
+            'tanggal' => 'required|date',
+            'pemeriksa' => 'required|string',
+            'details' => 'required|array',
+            'details.*.description' => 'required|string',
+            'details.*.price' => 'required|numeric',
+            'details.*.quantity' => 'required|integer|min:1',
+            'status' => 'required|string|in:paid,unpaid',
+            'details.*.total' => 'required|numeric',
         ]);
 
+        // Find Invoice
         $invoice = Invoice::findOrFail($id);
-        $invoice->update(['status' => $validatedData['status']]);
 
-        return response()->json($invoice);
+        // Update Invoice Data
+        $invoice->update([
+            'tanggal' => $validatedData['tanggal'],
+            'pemeriksa' => $validatedData['pemeriksa'],
+            'status' => $validatedData['status'],
+        ]);
+
+        // Delete existing details and add new ones
+        $invoice->details()->delete();
+        foreach ($validatedData['details'] as $detail) {
+            $invoice->details()->create($detail);
+        }
+
+        return response()->json($invoice->load('details'), 200);
     }
 
     // 5. Delete Invoice
