@@ -43,8 +43,7 @@ Route::delete('/schedules/{schedule}', [ScheduleController::class, 'destroy']); 
 
 Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
-Route::get('/invoices', [InvoiceController::class, 'getByStatus']);
+Route::get('/invoices/status/{status}', [InvoiceController::class, 'getByStatus']);
 Route::post('/invoices', [InvoiceController::class, 'store']);
 Route::patch('/invoices/{id}/status', [InvoiceController::class, 'updateStatus']);
 Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy']);
-

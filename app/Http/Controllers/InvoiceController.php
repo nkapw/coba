@@ -79,16 +79,16 @@ class InvoiceController extends Controller
         return response()->json(['message' => 'Invoice deleted successfully']);
     }
 
-    public function getByStatus(Request $request)
+    public function getByStatus($status)
     {
-        // Validasi query parameter status
-        $validatedData = $request->validate([
-            'status' => 'required|string|in:paid,unpaid',
-        ]);
+        // Validasi status
+        if (!in_array($status, ['paid', 'unpaid'])) {
+            return response()->json(['error' => 'Invalid status'], 400);
+        }
 
         // Ambil data invoice berdasarkan status
-        $invoices = Invoice::where('status', $validatedData['status'])
-            ->with('details') // Include relasi details
+        $invoices = Invoice::where('status', $status)
+            ->with('details')
             ->get();
 
         return response()->json($invoices, 200);
