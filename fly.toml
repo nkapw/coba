@@ -19,6 +19,8 @@ console_command = 'php /var/www/html/artisan tinker'
   LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
   SESSION_DRIVER = 'cookie'
   SESSION_SECURE_COOKIE = 'true'
+  MYSQL_DATABASE = "some_db"
+  MYSQL_USER = "non_root_user"
 
 [http_service]
   internal_port = 8080
@@ -27,6 +29,15 @@ console_command = 'php /var/www/html/artisan tinker'
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
+
+[processes]
+  app = """--datadir /data/mysql \
+    --default-authentication-plugin mysql_native_password"""
+
+# Add the following sections for all versions
+[mounts]
+  source = "mysqldata"
+  destination = "/data"
 
 [[vm]]
   memory = '1gb'
