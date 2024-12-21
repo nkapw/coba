@@ -15,6 +15,7 @@ class InvoiceController extends Controller
             'tanggal' => 'required|date',
             'pemeriksa' => 'required|string',
             'status' => 'required|in:paid,unpaid',
+            'user_id' => 'required|numeric',
             'details' => 'required|array',
             'details.*.description' => 'required|string',
             'details.*.price' => 'required|numeric',
@@ -32,6 +33,7 @@ class InvoiceController extends Controller
             'tanggal' => $validatedData['tanggal'],
             'pemeriksa' => $validatedData['pemeriksa'],
             'status' => $validatedData['status'], // Ambil status dari request
+            'user_id' => $validatedData['user_id'],
             // 'total' => "1",
         ]);
 
@@ -53,7 +55,15 @@ class InvoiceController extends Controller
     // 3. Get Single Invoice
     public function show($id)
     {
-        $invoice = Invoice::with('details')->findOrFail($id);
+        $invoice = Invoice::with('details')->where('user_id', $id)->get();
+
+        if ($invoice->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No invoices found for the specified user.',
+            ], 404);
+        }
+
         return response()->json($invoice);
     }
 

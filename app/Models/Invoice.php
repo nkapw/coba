@@ -12,7 +12,7 @@ class Invoice extends Model
     protected $fillable = [
         'tanggal',
         'pemeriksa',
-        'total',
+        'user_id',
         'status',
     ];
 

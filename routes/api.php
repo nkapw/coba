@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +48,6 @@ Route::get('/invoices/status/{status}', [InvoiceController::class, 'getByStatus'
 Route::post('/invoices', [InvoiceController::class, 'store']);
 Route::put('/invoices/{id}', [InvoiceController::class, 'update']);
 Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy']);
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);

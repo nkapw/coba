@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->decimal('price', 15, 2);
             $table->integer('quantity');
+            $table->decimal('total', 15, 2);
             $table->timestamps();
 
             // Foreign key untuk relasi dengan tabel invoices

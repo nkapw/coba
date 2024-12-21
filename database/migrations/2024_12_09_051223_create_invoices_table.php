@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('tanggal');
             $table->string('pemeriksa');
-            $table->decimal('total', 15, 2);
             $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
