@@ -52,10 +52,10 @@ class InvoiceController extends Controller
         return response()->json($invoices);
     }
 
-    // 3. Get Single Invoice
-    public function show($id)
+    //Get Single Invoice by userid
+    public function show($userid)
     {
-        $invoice = Invoice::with('details')->where('user_id', $id)->get();
+        $invoice = Invoice::with('details')->where('user_id', $userid)->get();
 
         if ($invoice->isEmpty()) {
             return response()->json([
@@ -64,6 +64,13 @@ class InvoiceController extends Controller
             ], 404);
         }
 
+        return response()->json($invoice);
+    }
+
+    //Get Single Invoice by id
+    public function getInvoiceByID($id)
+    {
+        $invoice = Invoice::with('details')->findOrFail($id);
         return response()->json($invoice);
     }
 

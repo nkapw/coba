@@ -43,7 +43,8 @@ Route::put('/schedules/{schedule}', [ScheduleController::class, 'update']); // U
 Route::delete('/schedules/{schedule}', [ScheduleController::class, 'destroy']); // Delete a schedule
 
 Route::get('/invoices', [InvoiceController::class, 'index']);
-Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
+Route::get('/invoices/users/{userid}', [InvoiceController::class, 'show']);
+Route::get('/invoices/{id}', [InvoiceController::class, 'getInvoiceByID']);
 Route::get('/invoices/status/{status}', [InvoiceController::class, 'getByStatus']);
 Route::post('/invoices', [InvoiceController::class, 'store']);
 Route::put('/invoices/{id}', [InvoiceController::class, 'update']);
